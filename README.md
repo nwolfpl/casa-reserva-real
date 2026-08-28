@@ -1,4 +1,4 @@
-# Rua H, nº 2 — Reserva Real | Montes Claros/MG
+# Rua Hortênsia Real, nº 2 — Reserva Real | Montes Claros/MG
 
 Landing page de venda do imóvel. Site estático: HTML, CSS e JS puros, sem build,
 sem dependências e sem backend. Basta subir a pasta `site/` em qualquer hospedagem.

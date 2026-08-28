@@ -1,4 +1,4 @@
-/* Rua H, 2 — Reserva Real | Montes Claros/MG */
+/* Rua Hortênsia Real, 2 — Reserva Real | Montes Claros/MG */
 (function () {
   'use strict';
 
@@ -165,7 +165,7 @@
       $('#r-total').textContent      = brl.format(total);
       $('#r-parcelas').textContent   = n + 'x';
 
-      var texto = 'Olá! Simulei o financiamento da casa da Rua H, 2 — Reserva Real:\n\n'
+      var texto = 'Olá! Simulei o financiamento da casa da Rua Hortênsia Real, 2 — Reserva Real:\n\n'
         + '• Valor considerado: ' + brl.format(valor) + '\n'
         + '• Entrada: ' + pctEnt + '% (' + brl.format(entrada) + ')\n'
         + '• Financiado: ' + brl.format(financiado) + ' em ' + n + 'x (' + sistema + ')\n'
@@ -193,7 +193,7 @@
       if (!nome) { $('#f-nome').focus(); return; }
 
       var texto = 'Olá! Meu nome é ' + nome + '.\n'
-        + 'Vi o anúncio da casa na Rua H, 2 — Reserva Real (Montes Claros/MG).\n'
+        + 'Vi o anúncio da casa na Rua Hortênsia Real, 2 — Reserva Real (Montes Claros/MG).\n'
         + (fone ? 'Meu contato: ' + fone + '\n' : '')
         + (msg ? 'Melhor horário para visita: ' + msg + '\n' : '')
         + '\nGostaria de saber o valor e agendar uma visita.';
