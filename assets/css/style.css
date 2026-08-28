@@ -461,10 +461,27 @@ p:last-child{ margin-bottom:0; }
   position:absolute; inset:0; display:grid; place-content:center; gap:.75rem; text-align:center; padding:2rem;
   background:linear-gradient(160deg,var(--ceu-suave),var(--paper-2));
 }
-.entorno{ display:flex; flex-wrap:wrap; gap:.45rem; margin-top:1.5rem; }
-.entorno span{
-  font-family:var(--mono); font-size:var(--fs-mono); letter-spacing:.1em; text-transform:uppercase;
-  padding:.45rem .8rem; border:1px solid var(--linha-forte); border-radius:999px; color:rgba(22,33,28,.72);
+.entorno__titulo{
+  font-family:var(--mono); font-size:var(--fs-mono); letter-spacing:.16em; text-transform:uppercase;
+  color:var(--verde); margin:1.9rem 0 .9rem;
+}
+.entorno{
+  list-style:none; margin:0; padding:0;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+  background:var(--linha); border:1px solid var(--linha);
+  border-radius:var(--r); overflow:hidden;
+}
+.entorno li{ background:var(--paper); padding:1rem .95rem; }
+.secao--papel .entorno li{ background:var(--marble); }
+.entorno .d{
+  display:block; font-family:var(--display); font-size:1.3rem; font-weight:600;
+  letter-spacing:-.035em; color:var(--ink); font-variant-numeric:tabular-nums; line-height:1.1;
+}
+.entorno .n{ display:block; margin-top:.2rem; font-size:.82rem; color:rgba(22,33,28,.62); line-height:1.35; }
+.entorno__fonte{ margin-top:.9rem; font-size:.76rem; color:rgba(22,33,28,.45); }
+@media (max-width:560px){
+  .entorno{ grid-template-columns:repeat(2,1fr); }
+  .entorno .d{ font-size:1.15rem; }
 }
 .endereco-bloco{
   font-family:var(--mono); font-size:.9rem; line-height:1.8; letter-spacing:-.01em;
