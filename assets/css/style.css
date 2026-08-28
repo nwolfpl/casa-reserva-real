@@ -202,7 +202,7 @@ p:last-child{ margin-bottom:0; }
 .hero__endereco{
   font-family:var(--mono); font-size:var(--fs-mono); letter-spacing:.2em; text-transform:uppercase;
   color:rgba(255,255,255,.9); display:inline-flex; align-items:center; gap:.6rem;
-  border:1px solid rgba(255,255,255,.3); border-radius:999px; padding:.45rem 1rem; margin-bottom:1.5rem;
+  border:1px solid rgba(255,255,255,.3); border-radius:22px; padding:.45rem 1rem; margin-bottom:1.5rem;
   backdrop-filter:blur(6px); background:rgba(255,255,255,.07);
 }
 .hero__endereco i{ width:6px; height:6px; border-radius:50%; background:var(--verde-vivo); flex:none; box-shadow:0 0 0 3px rgba(46,158,98,.28); }
