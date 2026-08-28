@@ -449,84 +449,83 @@ p:last-child{ margin-bottom:0; }
 /* ============================================================
    LOCALIZAÇÃO
    ============================================================ */
-/* mapa em largura total, com pino próprio no centro (= coordenada exata) */
+/* ---------- localização: mapa desenhado + pontos ---------- */
+.local{
+  display:grid; grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);
+  gap:clamp(1.5rem, 1rem + 2vw, 2.75rem); align-items:start;
+}
+@media (max-width:900px){ .local{ grid-template-columns:1fr; } }
+
 .mapa{
-  position:relative; aspect-ratio:16/9; min-height:320px;
-  border-radius:var(--r-lg); overflow:hidden; border:1px solid var(--linha);
-  background:var(--ceu-suave); isolation:isolate;
+  margin:0; position:relative; border-radius:var(--r-lg); overflow:hidden;
+  border:1px solid var(--linha); background:#E2E7E4;
 }
-@media (max-width:760px){ .mapa{ aspect-ratio:4/5; min-height:0; } }
-.mapa iframe{
-  width:100%; height:100%; border:0; display:block;
-  filter:saturate(.78) contrast(1.04);
-  pointer-events:none;           /* não rouba o scroll nem sai do lugar */
-}
-/* fundo desenhado: se os tiles não carregarem, o bloco ainda parece intencional */
-.mapa__falha{
-  position:absolute; inset:0; z-index:0;
-  background:
-    linear-gradient(160deg, var(--ceu-suave), var(--paper-2)),
-    repeating-linear-gradient(38deg, transparent 0 46px, rgba(22,33,28,.05) 46px 49px),
-    repeating-linear-gradient(-52deg, transparent 0 62px, rgba(22,33,28,.04) 62px 65px);
-}
-.mapa__pino{
-  position:absolute; top:50%; left:50%; width:20px; height:20px; z-index:2;
-  transform:translate(-50%,-50%); border-radius:50%;
-  background:var(--verde); border:3px solid #fff;
-  box-shadow:0 2px 10px -1px rgba(13,22,19,.55), 0 0 0 9px rgba(27,107,69,.16);
-}
-.mapa__cartao{
-  position:absolute; left:1.15rem; bottom:1.15rem; z-index:3; margin:0;
-  background:rgba(255,255,255,.95); backdrop-filter:blur(10px);
-  border:1px solid var(--linha); border-radius:var(--r);
-  padding:.95rem 1.15rem; max-width:min(22rem, calc(100% - 2.3rem));
-  font-family:var(--mono); font-size:.85rem; line-height:1.65; font-weight:500;
-  box-shadow:0 10px 30px -14px rgba(13,22,19,.4);
-}
-.mapa__cartao span{ font-weight:400; color:rgba(22,33,28,.6); }
-.mapa__cartao em{ font-style:normal; font-weight:400; color:rgba(22,33,28,.5); }
-.mapa__abrir{
-  position:absolute; right:1.15rem; bottom:1.15rem; z-index:3;
-  display:inline-flex; align-items:center; gap:.5rem; min-height:44px;
-  padding:.7rem 1.05rem; border-radius:var(--r); text-decoration:none;
-  background:var(--ink); color:#fff; font-size:var(--fs-sm); font-weight:600;
-  box-shadow:0 10px 30px -14px rgba(13,22,19,.6);
-  transition:background .2s, transform .2s;
-}
-.mapa__abrir:hover{ background:#000; transform:translateY(-2px); }
-.mapa__abrir svg{ width:14px; height:14px; }
-@media (max-width:620px){
-  .mapa__cartao{ left:.85rem; right:.85rem; bottom:4.6rem; max-width:none; font-size:.8rem; }
-  .mapa__abrir{ left:.85rem; right:.85rem; bottom:.85rem; justify-content:center; }
+.mapa svg{ width:100%; height:auto; display:block; }
+.mapa figcaption{
+  position:absolute; left:0; right:0; bottom:0; padding:.6rem .9rem;
+  font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase;
+  color:rgba(22,33,28,.5); background:linear-gradient(transparent, rgba(231,235,233,.9) 45%);
 }
 
-.entorno-faixa{ margin-top:clamp(2.25rem, 1.5rem + 2vw, 3.5rem); }
+/* traçado do mapa */
+.mp-verde path{ fill:rgba(46,158,98,.15); stroke:none; }
+.mp-agua path{ fill:none; stroke:var(--ceu); stroke-width:2.4; opacity:.65; }
+.mp-via path{ fill:none; stroke:#fff; stroke-linecap:round; stroke-linejoin:round; }
+.mp-via--c path{ stroke-width:3.4; }
+.mp-via--b path{ stroke-width:6; }
+.mp-via--a path{ stroke-width:9; stroke:#FFF6E4; }
+.mp-anel{ fill:none; stroke:rgba(22,33,28,.2); stroke-width:1.4; stroke-dasharray:5 7; }
+.mp-anel-rot{ font-family:var(--mono); font-size:15px; letter-spacing:.08em; fill:rgba(22,33,28,.42); }
+.mp-liga{ stroke:rgba(27,107,69,.32); stroke-width:2; stroke-dasharray:4 6; transition:stroke .25s, stroke-width .25s; }
+
+.mp-casa-halo{ fill:rgba(27,107,69,.2); }
+.mp-casa-ponto{ fill:var(--verde); stroke:#fff; stroke-width:4; }
+.mp-casa-rot{
+  font-family:var(--display); font-size:22px; font-weight:600; letter-spacing:-.02em;
+  fill:var(--ink); text-anchor:middle;
+}
+
+.mp-poi-in{ transition:transform .25s cubic-bezier(.2,.8,.3,1); transform-origin:center; }
+.mp-poi.is-ativo .mp-poi-in{ transform:scale(1.18); }
+.mp-poi-fundo{ fill:#fff; stroke:rgba(22,33,28,.3); stroke-width:1.5; transition:fill .25s, stroke .25s; }
+.mp-poi use{ fill:none; stroke:currentColor; color:var(--ink); stroke-width:1.7; transition:color .25s; }
+.mp-poi-dist{
+  font-family:var(--mono); font-size:15px; font-weight:500; letter-spacing:.02em;
+  fill:rgba(22,33,28,.62); text-anchor:middle; transition:fill .25s;
+}
+.mp-poi.is-ativo .mp-poi-fundo{ fill:var(--verde); stroke:var(--verde); }
+.mp-poi.is-ativo use{ color:#fff; }
+.mp-poi.is-ativo .mp-poi-dist{ fill:var(--ink); }
+.mp-liga.is-ativo{ stroke:var(--verde); stroke-width:3; }
+
+/* endereço e lista lateral */
+.local__end{
+  margin:0 0 1.75rem; padding-bottom:1.35rem; border-bottom:1px solid var(--linha);
+  font-family:var(--mono); font-size:.88rem; line-height:1.7; font-weight:500;
+}
+.local__end span{ font-weight:400; color:rgba(22,33,28,.6); }
+.local__end em{ font-style:normal; font-weight:400; color:rgba(22,33,28,.5); }
+
+.pontos{ list-style:none; margin:0 0 1.5rem; padding:0; border-top:1px solid var(--linha); }
+.pontos button{
+  width:100%; display:grid; grid-template-columns:auto auto 1fr; align-items:center; gap:.95rem;
+  padding:.85rem .2rem; min-height:44px; background:none; border:0; border-bottom:1px solid var(--linha);
+  font-family:inherit; text-align:left; cursor:pointer; color:inherit;
+  transition:background .2s, padding-left .2s;
+}
+.pontos button:hover, .pontos button.is-ativo{ background:rgba(27,107,69,.05); padding-left:.6rem; }
+.pd__ic{ width:20px; height:20px; color:var(--verde); flex:none; }
+.pd__d{
+  font-family:var(--display); font-size:1.02rem; font-weight:600; letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums; min-width:3.4rem;
+}
+.pd__n{ font-size:.9rem; color:rgba(22,33,28,.62); }
+
 .entorno__titulo{
   font-family:var(--mono); font-size:var(--fs-mono); letter-spacing:.16em; text-transform:uppercase;
-  color:var(--verde); margin:0 0 1rem; display:flex; align-items:center; gap:.7rem;
+  color:var(--verde); margin:0 0 .35rem; display:flex; align-items:center; gap:.7rem;
 }
 .entorno__titulo::after{ content:""; flex:1; height:1px; background:var(--linha); }
-.entorno{
-  list-style:none; margin:0; padding:0;
-  display:grid; grid-template-columns:repeat(6,1fr); gap:1px;
-  background:var(--linha); border:1px solid var(--linha);
-  border-radius:var(--r-lg); overflow:hidden;
-}
-.entorno li{
-  background:var(--marble); padding:1.35rem 1.15rem;
-  display:flex; flex-direction:column; gap:.3rem;
-}
-.entorno .d{
-  font-family:var(--display); font-size:clamp(1.35rem, 1.1rem + .7vw, 1.75rem); font-weight:600;
-  letter-spacing:-.04em; color:var(--ink); font-variant-numeric:tabular-nums; line-height:1;
-}
-.entorno .n{ font-size:.82rem; color:rgba(22,33,28,.6); line-height:1.35; }
-.entorno__fonte{ margin-top:.95rem; font-size:.76rem; color:rgba(22,33,28,.45); }
-@media (max-width:920px){ .entorno{ grid-template-columns:repeat(3,1fr); } }
-@media (max-width:520px){
-  .entorno{ grid-template-columns:repeat(2,1fr); }
-  .entorno li{ padding:1.1rem .9rem; }
-}
 .endereco-bloco{
   font-family:var(--mono); font-size:.9rem; line-height:1.8; letter-spacing:-.01em;
   padding:1.25rem 0 1.5rem; border-top:1px solid var(--linha); border-bottom:1px solid var(--linha); margin-bottom:1.5rem;
@@ -748,4 +747,16 @@ a, button, summary, label, input, select, textarea{
 @media (hover:none){
   .foto__legenda{ opacity:1; transform:none; }
   .btn:hover, .canal:hover, .legenda button:hover{ transform:none; }
+}
+
+/* mapa no celular: marcadores maiores, distâncias só na lista abaixo */
+@media (max-width:760px){
+  .mp-poi-in{ transform:scale(1.55); }
+  .mp-poi.is-ativo .mp-poi-in{ transform:scale(1.75); }
+  .mp-poi-dist{ display:none; }
+  .mp-anel-rot{ font-size:22px; }
+  .mp-casa-rot{ font-size:34px; }
+  .mp-casa-ponto{ r:15; }
+  .mp-casa-halo{ r:36; }
+  .mapa figcaption{ font-size:.6rem; letter-spacing:.06em; }
 }

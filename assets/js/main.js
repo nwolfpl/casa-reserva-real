@@ -114,6 +114,24 @@
     });
   });
 
+
+  /* ---------- mapa desenhado: destacar um ponto ---------- */
+  var pontos = $('#pontos');
+  if (pontos) {
+    var marcar = function (chave) {
+      $$('.mp-poi').forEach(function (g) { g.classList.toggle('is-ativo', g.dataset.poi === chave); });
+      $$('.mp-liga').forEach(function (l) { l.classList.toggle('is-ativo', l.dataset.liga === chave); });
+      $$('#pontos button').forEach(function (b) { b.classList.toggle('is-ativo', b.dataset.alvo === chave); });
+    };
+    $$('#pontos button').forEach(function (b) {
+      var k = b.dataset.alvo;
+      b.addEventListener('mouseenter', function () { marcar(k); });
+      b.addEventListener('focus', function () { marcar(k); });
+      b.addEventListener('click', function () { marcar(k); });
+    });
+    pontos.addEventListener('mouseleave', function () { marcar(null); });
+  }
+
   /* ---------- simulador de financiamento ---------- */
   var sim = $('#sim');
   if (sim) {
